@@ -1,5 +1,7 @@
 # grunt-missing-spec
 
+[![Build Status](https://travis-ci.org/thatguynamedandy/grunt-missing-spec.svg)](https://travis-ci.org/thatguynamedandy/grunt-missing-spec)
+
 > Find and list JavaScript files that do not have corresponding specs / tests
 
 This is a simple task to help find untested files. Code coverage tools like [Istanbul](https://gotwarlost.github.io/istanbul/)
