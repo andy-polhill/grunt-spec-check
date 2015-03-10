@@ -2,7 +2,7 @@
   "name": "grunt-missing-spec",
   "description": "Find and list JavaScript files that do not have corresponding specs",
   "version": "0.1.0",
-  "homepage": "https://github.com/andypolhill/grunt-missing-spec",
+  "homepage": "https://github.com/thatguynamedandy/grunt-missing-spec",
   "author": {
     "name": "Andrew Polhill",
     "email": "apolhill@gmail.com",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/andypolhill/grunt-missing-spec.git"
+    "url": "git://github.com/thatguynamedandy/grunt-missing-spec.git"
   },
   "bugs": {
-    "url": "https://github.com/andypolhill/grunt-missing-spec/issues"
+    "url": "https://github.com/thatguynamedandy/grunt-missing-spec/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/andypolhill/grunt-missing-spec/blob/master/LICENSE-MIT"
+      "url": "https://github.com/thatguynamedandy/grunt-missing-spec/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
