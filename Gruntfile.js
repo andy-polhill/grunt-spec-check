@@ -92,6 +92,15 @@ module.exports = function(grunt) {
           ]
         }
       },
+      invalid_severity: {
+        options: {
+          severity: 'log',
+          testDir: 'test/fixtures/missing_test_spec_format/test'
+        },
+        files: {
+          src: ['test/fixtures/missing_test_spec_format/lib/**/*.js']
+        }
+      }
     },
 
     // Unit tests.

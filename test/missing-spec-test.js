@@ -5,7 +5,8 @@ var exec = require('child_process').exec;
 /*  FIXME:
  *  I don't like the appraoch of using exec and then checking the output,
  *  however testing grunt tasks appears to be quite tricky if you are not directly
- *  modifying files. The checking of grunt text output may prove brittle.
+ *  modifying files. The checking of grunt text output may prove brittle, you also
+ * cannot generate coverage reports or reliably debug the code.
  */
 
 exports.missingSpec = {
@@ -71,6 +72,16 @@ exports.missingSpec = {
           'It should output the number of files with tests');
       test.done();
     });
+  },
+  invalid_severity: function(test) {
+    test.expect(2);
+    exec('grunt missingSpec:invalid_severity', {}, function(error, stdout) {
+      test.ok(stdout.indexOf('Fatal error') > 0, 'It should throw a fatal warning when severity is invalid');
+      test.ok(stdout.indexOf('The provided severity option is invalid') > 0,
+          'It should throw a fatal warning when severity is invalid');
+      test.done();
+    });
   }
+
 
 };

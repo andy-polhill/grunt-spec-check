@@ -40,7 +40,11 @@ module.exports = function(grunt) {
       });
 
       if(src.length > 0) {
-        grunt.fail[options.severity]('Some files did not have corresponding test cases');
+        if(typeof grunt.fail[options.severity] === 'function') {
+          grunt.fail[options.severity]('Some files did not have corresponding test cases');
+        } else {
+          grunt.fail.fatal('The provided severity option is invalid: ' + options.severity);
+        }
       } else {
         var fileStr = ' File' + grunt.util.pluralize(fileCount, '/s');
         var pluralStr = 'case' + grunt.util.pluralize(fileCount, '/s')
