@@ -15,7 +15,6 @@ exports.missingSpec = {
   },
   default_all_tested: function(test) {
     exec('grunt missingSpec:default_all_tested', {}, function(error, stdout) {
-      console.log(stdout);
       test.ok(stdout.indexOf('Fatal error') === -1, 'It should not display an error when all files have specs');
       test.ok(stdout.indexOf('2 Files with corresponding test cases') > 0,
           'It should output the number of files with tests');
