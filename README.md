@@ -1,6 +1,6 @@
-# grunt-missing-spec
+# grunt-spec-check
 
-[![Build Status](https://travis-ci.org/thatguynamedandy/grunt-missing-spec.svg)](https://travis-ci.org/thatguynamedandy/grunt-missing-spec)
+[![Build Status](https://travis-ci.org/thatguynamedandy/grunt-spec-check.svg)](https://travis-ci.org/thatguynamedandy/grunt-spec-check)
 
 > Find and list JavaScript files that do not have corresponding specs / tests
 
@@ -20,23 +20,23 @@ This plugin requires Grunt `~0.4.5`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-missing-spec --save-dev
+npm install grunt-spec-check --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-missing-spec');
+grunt.loadNpmTasks('grunt-spec-check');
 ```
 
-## The "missingSpec" task
+## The "specCheck" task
 
 ### Overview
-In your project's Gruntfile, add a section named `missingSpec` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `specCheck` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  missingSpec: {
+  specCheck: {
     options: {
       // Task-specific options go here.
     },
@@ -48,6 +48,21 @@ grunt.initConfig({
 ```
 
 ### Options
+
+#### options.baseDir
+Type: `String`
+Default value: `/lib`
+
+A string value that corresponds to the location of the scripts that should be tested. When
+searching for a spec this section of the filepath is replaced with the value
+specified for testDir
+
+#### options.testDir
+Type: `String`
+Default value: `/test`
+
+A string value that corresponds to the location of your test files. It is assumed
+that the directory structure of your test files matches that of your tested files.
 
 #### options.severity
 Type: `String`
@@ -67,13 +82,6 @@ The task works by replacing `'.js`' with the value provided here. So:
 - `'.spec.js'` : `file.js => file.spec.js`
 - `'Test.js'` : `file.js`' => `'fileTest.js`
 
-#### options.testDir
-Type: `String`
-Default value: `/test`
-
-A string value that corresponds to the location of your test files. It is assumed
-that the directory structure of your test files matches that of your runtime files.
-
 ### Usage Examples
 
 #### Default Options
@@ -82,7 +90,7 @@ and throw a fatal warning if any test cases are missing.
 
 ```js
 grunt.initConfig({
-  missingSpec: {
+  specCheck: {
     files: {
       src: ["lib/**/*.js"]
     },
@@ -92,19 +100,29 @@ grunt.initConfig({
 
 #### Custom Options
 In this example, we check for corresponding test cases for all JavaScript files,
-our test naming convention is to use the term Test instead of spec, and we only
-want to list untested files and not fail the build.
+but we exclude any debug files. Our test naming convention is to use the term Test
+instead of Spec, and we only want to list untested files and not fail the build.
+We are also using template properties to cut down on repeated file paths.
+
 
 ```js
 grunt.initConfig({
-  missingSpec: {
+  app: {
+    'tests': 'src/test/resources/scripts',
+    'scripts': 'src/main/resources/scripts'
+  },
+  specCheck: {
     options: {
       convention: "Test.js"
       severity: "warn",
-      testDir: "test"
+      testDir: "<%= app.scripts %>",
+      baseDir: "<%= app.tests %>"
     }
     files: {
-      src: ["lib/**/*.js"]
+      src: [
+        "<%= app.scripts %>/**/*.js",
+        "!<%= app.scripts %>/**/*debug.js",
+      ]
     },
   },
 });

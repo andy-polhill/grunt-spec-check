@@ -1,6 +1,6 @@
 /*
- * grunt-missing-spec
- * https://github.com/andypolhill/grunt-missing-spec
+ * grunt-spec-check
+ * https://github.com/andypolhill/grunt-spec-check
  *
  * Copyright (c) 2015 Andrew Polhill
  * Licensed under the MIT license.
@@ -13,12 +13,14 @@ module.exports = function(grunt) {
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
-  grunt.registerMultiTask('missingSpec', 'Find and list JavaScript files that do not have corresponding specs', function() {
+  grunt.registerMultiTask('specCheck', 'Find and list JavaScript files that do not have corresponding specs', function() {
 
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       convention: 'Spec.js',
-      severity: 'fatal'
+      severity: 'fatal',
+      baseDir: 'lib',
+      testDir: 'test'
     });
 
     var fileCount = 0;
@@ -27,15 +29,17 @@ module.exports = function(grunt) {
     this.files.forEach(function(f) {
       var src = f.src.filter(function(filepath) {
         grunt.log.debug('Searching spec for: ' + filepath);
-        var testFilepath = filepath.replace('.js', options.convention); //convention
-        testFilepath = testFilepath.replace('lib', 'test'); //filepath
-        if (!grunt.file.exists(testFilepath)) {
-          grunt.log.warn('No spec found for: ' + filepath);
-          return true;
-        } else {
+        //var testFilepath = filepath.replace('.js', options.convention); //convention
+        var testFilepath = filepath.replace(options.baseDir, options.testDir).replace('.js', options.convention);
+
+        if (grunt.file.exists(testFilepath) && grunt.file.isFile(testFilepath)) {
           fileCount++;
           grunt.log.debug('Spec found for: ' + filepath);
           return false;
+        } else {
+          grunt.log.warn('No spec found for: ' + filepath);
+          grunt.log.debug('Looking for spec at: ' + testFilepath);
+          return true;
         }
       });
 
