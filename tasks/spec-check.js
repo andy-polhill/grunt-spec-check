@@ -51,7 +51,7 @@ module.exports = function(grunt) {
         }
       } else {
         var fileStr = ' File' + grunt.util.pluralize(fileCount, '/s');
-        var pluralStr = 'case' + grunt.util.pluralize(fileCount, '/s')
+        var pluralStr = 'case' + grunt.util.pluralize(fileCount, '/s');
         grunt.log.ok(fileCount + fileStr +  ' with corresponding test ' + pluralStr);
       }
 
