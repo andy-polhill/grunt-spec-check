@@ -36,6 +36,10 @@
     "grunt": "~0.4.5"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "coverage",
+    "code coverage",
+    "JS code coverage",
+    "JS coverage"
   ]
 }
